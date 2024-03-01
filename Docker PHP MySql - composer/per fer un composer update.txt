@@ -1,1 +1,5 @@
+per fer corre el docker compose
+docker compose up
+
+
 composer update --ignore-platform-reqs
