@@ -1,5 +1,5 @@
-#FROM php:8.1-apache
-FROM php:7.4-apache
+FROM php:8.2-apache
+#FROM php:7.4-apache
 RUN apt-get update
 RUN apt-get install -y apt-utils
 RUN apt-get install -y nano procps
@@ -20,6 +20,8 @@ RUN HASH=`curl -sS https://composer.github.io/installer.sig`
 RUN php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 RUN php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 EXPOSE 80
+CMD ["apache2-foreground"]
+
 ADD apache.conf /etc/apache2/sites-available/000-default.conf
 ADD php.ini-development /usr/local/etc/php/php.ini-development
 ADD php.ini-production /usr/local/etc/php/php.ini-production
